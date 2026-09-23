@@ -2,7 +2,7 @@
 <html lang="es">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale-1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Login  - UTILERIA JS</title>
         
         <link rel="stylesheet" href="css/styles.css">
@@ -15,8 +15,8 @@
             <span id="errorLo_Correo" class="error"></span>
 
             <label>Contrasena</label>
-            <input type="contrasena" id="loginContrasena" placeholder="* * * * ..">
-            <span id="fortalezaContrasena"></span>
+            <input type="password" id="loginContrasena">
+            <span id="FortaContrasena"></span>
             <span id="errorLoginContrasena" class="error"></span>
 
             <button type="submit">Ingresar</button>
@@ -36,12 +36,12 @@
 
             document.getElementById("formLogin").addEventListener("submit",
             function (event) {
-                event.prevetDefault();
-                const correo =document.getElementById("loginCorreo").value;
+                event.preventDefault();
+                const correo =document.getElementById("LoginCorreo").value;
                 const contrasena = inputContrasena.value;
                 let valido = true;
 
-                document.getElementById("errorLoginCorreo").textContent =validarCorreo(correo) ? "" : "Correo invalido";
+                document.getElementById("errorLo_Correo").textContent =validarCorreo(correo) ? "" : "Correo invalido";
                 if(!validarCorreo(correo)) valido = false;
 
                 document.getElementById("errorLoginContrasena").textContent = validarContrasena(contrasena) ? "": "Nop cumple los requesitos";

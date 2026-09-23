@@ -9,10 +9,10 @@
         <form id="formPricipal">
             <label>Nombre: </label>
             <input type="text" id="nombre" placeholder="Emanuel">
-            <span id="errorCorreo" class="error"></span>
+            <span id="errorNombre" class="error"></span>
 
             <label>Correo</label>
-            <imput type="email" id="correo" placeholder="123@gmail.com">
+            <input type="email" id="correo" placeholder="123@gmail.com">
             <span id="errorCorreo" class="error"></span>
                 
             <label>Fecha de nacimiento: </label>
@@ -37,7 +37,7 @@
             <p>
                 Telefono formateado: <strong id="telefonoResultado"></strong>
             </p>
-            <button id="cerrarmodal">Cerrar</button>
+            <button id="cerrarModal">Cerrar</button>
 
         </dialog>
 
@@ -66,7 +66,7 @@
                 document.getElementById("errorCodigo").textContent = validarLongitud(codigo, 6) ? "" : "Maximo 6 digitos";
                 if(!validarLongitud(codigo, 6)) valido =false;
 
-                if(!invalido) return ;
+                if(!valido) return ;
 
                 document.getElementById("edadResultado").textContent = calcularEdad(fecha);
                 document.getElementById("mayorEdadResultado").textContent = esMayorEdad(fecha) ? "Si" : "No";

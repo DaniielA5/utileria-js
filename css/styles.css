@@ -1,0 +1,98 @@
+:root {
+  --fondo: #f4f6fb;
+  --tarjeta: #ffffff;
+  --texto: #1f2937;
+  --primario: #4f46e5;
+  --error: #dc2626;
+  --debil: #dc2626;
+  --media: #d97706;
+  --fuerte: #16a34a;
+}
+
+
+* {box-sizing: border-box;}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--fondo);
+    color: var(--texto);
+}
+
+form{
+    background: var(--tarjeta);
+    padding: 2rem;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+}
+
+label {
+    display: flex; 
+    flex-direction: column; 
+    gap: 0.25rem;
+    font-weight:  600;
+}
+
+input {
+    padding: 0.6rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+input:focus {
+    outline: 2px solid var(--primario);
+    border-color: transparent;
+}
+
+button {
+    margin-top: 0.75rem;
+    padding: 0.7rem;
+    border: none;
+    border-radius: 8px;
+    background: var(--primario);
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+button:hover { opacity: 0.9;}
+
+.error {color: var(--error);
+font-size: 0.85rem;
+min-height: 1rem;
+}
+
+#fortalezaContrasena {
+    font-size: 0.9rem;
+    font-weight: 600;
+
+}
+
+.debil {color: var(--debil);}
+.media {color: var(--media);}
+.fuerte {color: var(--fuerte);}
+
+dialog {
+    border: none;
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 8px 32px rgba( 0, 0, 0.25);
+}
+dialog::backdrop { background: rgba(0, 0, 0, .5);}
+
+#mensajeLogin {position: fixed;
+bottom:2rem;
+font-weight: 600;
+color: var(--fuerte);
+}
