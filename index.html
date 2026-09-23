@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Formulario - Utileria JS</title>
+        <link rel="stylesheet" href="css/styles.css">
+    </head>
+    <body>
+        <form id="formPricipal">
+            <label>Nombre: </label>
+            <input type="text" id="nombre" placeholder="Emanuel">
+            <span id="errorCorreo" class="error"></span>
+
+            <label>Correo</label>
+            <imput type="email" id="correo" placeholder="123@gmail.com">
+            <span id="errorCorreo" class="error"></span>
+                
+            <label>Fecha de nacimiento: </label>
+            <input type="date" id="fechaNacimiento">
+            <span id="errorFecha" class="error"></span>
+            <label>Codigo (max 6 digitos)</label>
+            <input type="text" id="codigo">
+            <span id="errorCodigo" class="error"></span>
+
+            <label>Telefono</label>
+            <input type="text" id="telefono">
+
+            <button type="submit">Enviar</button>
+
+        </form>
+
+
+        <dialog id="modalEdad">
+            <p>Tu edad es: <strong id="edadResultado"></strong></p>
+            <p>Mayor de edad? <strong id="mayorEdadResultado"></strong></p>
+        
+            <p>
+                Telefono formateado: <strong id="telefonoResultado"></strong>
+            </p>
+            <button id="cerrarmodal">Cerrar</button>
+
+        </dialog>
+
+        <script src="js/utileria.js"></script>
+        <script>
+            const form = document.getElementById("formPricipal");
+            const modal = document.getElementById("modalEdad");
+
+            form.addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                const nombre = document.getElementById("nombre").value;
+                const correo = document.getElementById("correo").value;
+                const fecha = document.getElementById("fechaNacimiento").value;
+                const codigo = document.getElementById("codigo").value;
+                const telefono = document.getElementById("telefono").value;
+                
+                let valido = true;
+
+                document.getElementById("errorNombre").textContent = soloLetras(nombre) ? "" : "Solo letras perimitidas";
+                if(!soloLetras(nombre)) valido = false;
+
+                document.getElementById("errorCorreo").textContent = validarCorreo(correo) ? "" : "Correo invalido";
+                if(!validarCorreo(correo)) valido=  false; 
+
+                document.getElementById("errorCodigo").textContent = validarLongitud(codigo, 6) ? "" : "Maximo 6 digitos";
+                if(!validarLongitud(codigo, 6)) valido =false;
+
+                if(!invalido) return ;
+
+                document.getElementById("edadResultado").textContent = calcularEdad(fecha);
+                document.getElementById("mayorEdadResultado").textContent = esMayorEdad(fecha) ? "Si" : "No";
+                document.getElementById("telefonoResultado").textContent = formatearTelefono(telefono);
+
+                modal.showModal();
+            });
+
+            document.getElementById("cerrarModal").addEventListener("click", function() {
+                modal.close() ;
+
+            });
+        </script>
+    </body>
+</html>
