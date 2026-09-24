@@ -2,7 +2,7 @@
 
 Librería de validaciones y utilidades en JavaScript puro (sin frameworks) que resuelve un problema común: **validar y formatear datos de formularios sin reescribir las mismas expresiones regulares en cada proyecto**.
 
- **Demo en vivo:** <link pages>
+ **Demo en vivo:** <https://daniiela5.github.io/utileria-js/>
  **Video:** <link video >
 
 ## Instalación
