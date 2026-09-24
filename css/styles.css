@@ -121,3 +121,6 @@ font-weight: 600;
 color: var(--fuerte);
 }
 a { color: var(--primario); text-align: center; font-size: 0.9rem; }
+
+#mensajeLogin.fallo { color: var(--error); }
+

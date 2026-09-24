@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Utileria JS</title>
     <link rel="stylesheet" href="css/styles.css">
+    <script src="js/utileria.js"></script>
+    <script src="js/login.js" defer></script>
 </head>
 <body>
     <form id="formLogin" novalidate>
@@ -16,8 +18,7 @@
 
         <label for="loginPassword">Contraseña</label>
         <input type="password" id="loginPassword">
-        <div class="barra"><div id="barraFortaleza"></div></div>
-        <span id="textoFortaleza" class="texto-fortaleza"></span>
+       
         <span id="errorLoginPassword" class="error"></span>
 
         <button type="submit">Iniciar sesión</button>
@@ -25,41 +26,11 @@
     </form>
     <p id="mensajeLogin"></p>
 
-    <script src="js/utileria.js"></script>
-    <script>
-        const inputPassword = document.getElementById("loginPassword");
-        const barra = document.getElementById("barraFortaleza");
-        const textoFortaleza = document.getElementById("textoFortaleza");
-
-        inputPassword.addEventListener("input", function () {
-            if (inputPassword.value === "") {
-                delete inputPassword.dataset.nivel;
-                delete barra.dataset.nivel;
-                delete textoFortaleza.dataset.nivel;
-                textoFortaleza.textContent = "";
-                return;
-            }
-            const nivel = medirFortalezaPassword(inputPassword.value);
-            const clave = nivel === "débil" ? "debil" : nivel;
-            inputPassword.dataset.nivel = clave;
-            barra.dataset.nivel = clave;
-            textoFortaleza.dataset.nivel = clave;
-            textoFortaleza.textContent = "Fortaleza: " + nivel;
-        });
-
-        document.getElementById("formLogin").addEventListener("submit", function (event) {
-            event.preventDefault();
-
-            const correo = document.getElementById("loginCorreo").value;
-            const password = inputPassword.value;
-
-            const correoOk = validarCorreo(correo);
-            const passwordOk = validarPassword(password);
-
-            document.getElementById("errorLoginCorreo").textContent = correoOk ? "" : "Correo inválido";
-            document.getElementById("errorLoginPassword").textContent = passwordOk ? "" : "Mínimo 8 caracteres con mayúscula, minúscula, número y símbolo";
-            document.getElementById("mensajeLogin").textContent = (correoOk && passwordOk) ? "Login exitoso" : "";
-        });
-    </script>
 </body>
 </html>
+
+
+<!-- 
+loginn no necesario en login solo en registro 
+poner variable estatica 
+-->

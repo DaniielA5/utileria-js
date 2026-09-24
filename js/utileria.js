@@ -63,3 +63,4 @@ function medirFortalezaPassword(password) {
   if (puntos <= 4) return "media";
   return "fuerte";
 }
+
