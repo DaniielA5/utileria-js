@@ -70,14 +70,21 @@ medirFortalezaPassword("Hola123!");   // "fuerte"
 ```
 
 ## Capturas
+### Consola: funciones obligatorias
+![Consola obligatorias](img/consola-obligatorias.png)
 
-![Consola](img/consola.png)
-![Formulario y modal](img/modal.png)
+### Consola: funciones propias
+![Consola libres](img/consola-libres.png)
+
+### Formulario de registro y modal
+![Registro y modal](img/registro-modal.png)
+
+### Login
 ![Login](img/login.png)
 
 ## Video
 
-<video>
+<video controls src="video.mp4"></video>
 
 ## Autor
 
