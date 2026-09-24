@@ -1,57 +1,65 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Login  - UTILERIA JS</title>
-        
-        <link rel="stylesheet" href="css/styles.css">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Utileria JS</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <form id="formLogin" novalidate>
+        <h1>Iniciar sesión</h1>
 
-    <body>
-        <form id="formLogin">
-            <label>Correo</label>
-            <input type="email" id="LoginCorreo" placeholder="123@gmail.com">
-            <span id="errorLo_Correo" class="error"></span>
+        <label for="loginCorreo">Correo</label>
+        <input type="email" id="loginCorreo" placeholder="123@gmail.com">
+        <span id="errorLoginCorreo" class="error"></span>
 
-            <label>Contrasena</label>
-            <input type="password" id="loginContrasena">
-            <span id="FortaContrasena"></span>
-            <span id="errorLoginContrasena" class="error"></span>
+        <label for="loginPassword">Contraseña</label>
+        <input type="password" id="loginPassword">
+        <div class="barra"><div id="barraFortaleza"></div></div>
+        <span id="textoFortaleza" class="texto-fortaleza"></span>
+        <span id="errorLoginPassword" class="error"></span>
 
-            <button type="submit">Ingresar</button>
-        </form>
-        <p id="mensajeLogin"></p>
+        <button type="submit">Iniciar sesión</button>
+        <p class="cambio">¿No tienes cuenta? <a href="index.html">Regístrate</a></p>
+    </form>
+    <p id="mensajeLogin"></p>
 
-        <script src="js/utileria.js"></script>
-        <script>
-            const inputContrasena = 
-            document.getElementById("LoginContrasena");
-            const spanFortaleza = 
-            document.getElementById("FortaContrasena");
+    <script src="js/utileria.js"></script>
+    <script>
+        const inputPassword = document.getElementById("loginPassword");
+        const barra = document.getElementById("barraFortaleza");
+        const textoFortaleza = document.getElementById("textoFortaleza");
 
-            inputContrasena.addEventListener("input", function() {
-                spanFortaleza.textContent= "Fortaleza: " + medirFortaContrasena(inputContrasena.value);
-            });
+        inputPassword.addEventListener("input", function () {
+            if (inputPassword.value === "") {
+                delete inputPassword.dataset.nivel;
+                delete barra.dataset.nivel;
+                delete textoFortaleza.dataset.nivel;
+                textoFortaleza.textContent = "";
+                return;
+            }
+            const nivel = medirFortalezaPassword(inputPassword.value);
+            const clave = nivel === "débil" ? "debil" : nivel;
+            inputPassword.dataset.nivel = clave;
+            barra.dataset.nivel = clave;
+            textoFortaleza.dataset.nivel = clave;
+            textoFortaleza.textContent = "Fortaleza: " + nivel;
+        });
 
-            document.getElementById("formLogin").addEventListener("submit",
-            function (event) {
-                event.preventDefault();
-                const correo =document.getElementById("LoginCorreo").value;
-                const contrasena = inputContrasena.value;
-                let valido = true;
+        document.getElementById("formLogin").addEventListener("submit", function (event) {
+            event.preventDefault();
 
-                document.getElementById("errorLo_Correo").textContent =validarCorreo(correo) ? "" : "Correo invalido";
-                if(!validarCorreo(correo)) valido = false;
+            const correo = document.getElementById("loginCorreo").value;
+            const password = inputPassword.value;
 
-                document.getElementById("errorLoginContrasena").textContent = validarContrasena(contrasena) ? "": "Nop cumple los requesitos";
-                if(!validarContrasena(contrasena)) valido =  false;
+            const correoOk = validarCorreo(correo);
+            const passwordOk = validarPassword(password);
 
-                document.getElementById("mensajeLogin").textContent = valido ? "Login exitoso" : "";
-
-            });
-
-        </script>
-
-    </body>
+            document.getElementById("errorLoginCorreo").textContent = correoOk ? "" : "Correo inválido";
+            document.getElementById("errorLoginPassword").textContent = passwordOk ? "" : "Mínimo 8 caracteres con mayúscula, minúscula, número y símbolo";
+            document.getElementById("mensajeLogin").textContent = (correoOk && passwordOk) ? "Login exitoso" : "";
+        });
+    </script>
+</body>
 </html>

@@ -73,21 +73,45 @@ font-size: 0.85rem;
 min-height: 1rem;
 }
 
-#fortalezaContrasena {
-    font-size: 0.9rem;
-    font-weight: 600;
+[data-nivel="debil"]  { --nivel: var(--debil); }
+[data-nivel="media"]  { --nivel: var(--media); }
+[data-nivel="fuerte"] { --nivel: var(--fuerte); }
 
+.barra {
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
 }
 
-.debil {color: var(--debil);}
-.media {color: var(--media);}
-.fuerte {color: var(--fuerte);}
+#barraFortaleza {
+  height: 100%;
+  width: 0;
+  background: var(--nivel);
+  transition: width 0.25s, background 0.25s;
+}
+#barraFortaleza[data-nivel="debil"]  { width: 33%; }
+#barraFortaleza[data-nivel="media"]  { width: 66%; }
+#barraFortaleza[data-nivel="fuerte"] { width: 100%; }
+
+input[data-nivel],
+input[data-nivel]:focus {
+  border-color: var(--nivel);
+  outline-color: var(--nivel);
+}
+
+.texto-fortaleza { font-size: 0.85rem; font-weight: 600; min-height: 1rem; }
+.texto-fortaleza[data-nivel] { color: var(--nivel); }
+
+h1 { margin: 0 0 0.5rem; font-size: 1.5rem; text-align: center; }
+.cambio { margin: 0.5rem 0 0; text-align: center; font-size: 0.9rem; }
+
 
 dialog {
     border: none;
     border-radius: 12px;
     padding: 1.5rem 2rem;
-    box-shadow: 0 8px 32px rgba( 0, 0, 0.25);
+    box-shadow: 0 8px 32px rgba( 0, 0, 0, 0.25);
 }
 dialog::backdrop { background: rgba(0, 0, 0, .5);}
 
@@ -96,3 +120,4 @@ bottom:2rem;
 font-weight: 600;
 color: var(--fuerte);
 }
+a { color: var(--primario); text-align: center; font-size: 0.9rem; }

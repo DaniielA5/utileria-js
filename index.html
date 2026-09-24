@@ -1,84 +1,112 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <title>Formulario - Utileria JS</title>
-        <link rel="stylesheet" href="css/styles.css">
-    </head>
-    <body>
-        <form id="formPricipal">
-            <label>Nombre: </label>
-            <input type="text" id="nombre" placeholder="Emanuel">
-            <span id="errorNombre" class="error"></span>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Utileria JS</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <form id="formPrincipal" novalidate>
+        <h1>Registro</h1>
 
-            <label>Correo</label>
-            <input type="email" id="correo" placeholder="123@gmail.com">
-            <span id="errorCorreo" class="error"></span>
-                
-            <label>Fecha de nacimiento: </label>
-            <input type="date" id="fechaNacimiento">
-            <span id="errorFecha" class="error"></span>
-            <label>Codigo (max 6 digitos)</label>
-            <input type="text" id="codigo">
-            <span id="errorCodigo" class="error"></span>
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" placeholder="Emanuel">
+        <span id="errorNombre" class="error"></span>
 
-            <label>Telefono</label>
-            <input type="text" id="telefono">
+        <label for="correo">Correo</label>
+        <input type="email" id="correo" placeholder="123@gmail.com">
+        <span id="errorCorreo" class="error"></span>
 
-            <button type="submit">Enviar</button>
+        <label for="fechaNacimiento">Fecha de nacimiento</label>
+        <input type="date" id="fechaNacimiento">
+        <span id="errorFecha" class="error"></span>
 
-        </form>
+        <label for="codigoPostal">Código postal (máx 5 dígitos)</label>
+        <input type="text" id="codigoPostal" placeholder="68000">
+        <span id="errorCodigo" class="error"></span>
 
+        <label for="telefono">Teléfono</label>
+        <input type="text" id="telefono" placeholder="9511234567">
 
-        <dialog id="modalEdad">
-            <p>Tu edad es: <strong id="edadResultado"></strong></p>
-            <p>Mayor de edad? <strong id="mayorEdadResultado"></strong></p>
-        
-            <p>
-                Telefono formateado: <strong id="telefonoResultado"></strong>
-            </p>
-            <button id="cerrarModal">Cerrar</button>
+        <label for="password">Contraseña</label>
+        <input type="password" id="password">
+        <div class="barra"><div id="barraFortaleza"></div></div>
+        <span id="textoFortaleza" class="texto-fortaleza"></span>
+        <span id="errorPassword" class="error"></span>
 
-        </dialog>
+        <button type="submit">Registrarme</button>
+        <p class="cambio">¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a></p>
+    </form>
 
-        <script src="js/utileria.js"></script>
-        <script>
-            const form = document.getElementById("formPricipal");
-            const modal = document.getElementById("modalEdad");
+    <dialog id="modalEdad">
+        <h2>¡Registro exitoso!</h2>
+        <p>Hola, <strong id="nombreResultado"></strong></p>
+        <p>Tu edad es: <strong id="edadResultado"></strong></p>
+        <p>¿Mayor de edad? <strong id="mayorEdadResultado"></strong></p>
+        <p>Teléfono formateado: <strong id="telefonoResultado"></strong></p>
+        <button id="cerrarModal">Cerrar</button>
+    </dialog>
 
-            form.addEventListener("submit", function (event) {
-                event.preventDefault();
+    <script src="js/utileria.js"></script>
+    <script>
+        const form = document.getElementById("formPrincipal");
+        const modal = document.getElementById("modalEdad");
+        const inputPassword = document.getElementById("password");
+        const barra = document.getElementById("barraFortaleza");
+        const textoFortaleza = document.getElementById("textoFortaleza");
 
-                const nombre = document.getElementById("nombre").value;
-                const correo = document.getElementById("correo").value;
-                const fecha = document.getElementById("fechaNacimiento").value;
-                const codigo = document.getElementById("codigo").value;
-                const telefono = document.getElementById("telefono").value;
-                
-                let valido = true;
+        inputPassword.addEventListener("input", function () {
+            if (inputPassword.value === "") {
+                delete inputPassword.dataset.nivel;
+                delete barra.dataset.nivel;
+                delete textoFortaleza.dataset.nivel;
+                textoFortaleza.textContent = "";
+                return;
+            }
+            const nivel = medirFortalezaPassword(inputPassword.value);
+            const clave = nivel === "débil" ? "debil" : nivel;
+            inputPassword.dataset.nivel = clave;
+            barra.dataset.nivel = clave;
+            textoFortaleza.dataset.nivel = clave;
+            textoFortaleza.textContent = "Fortaleza: " + nivel;
+        });
 
-                document.getElementById("errorNombre").textContent = soloLetras(nombre) ? "" : "Solo letras perimitidas";
-                if(!soloLetras(nombre)) valido = false;
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
 
-                document.getElementById("errorCorreo").textContent = validarCorreo(correo) ? "" : "Correo invalido";
-                if(!validarCorreo(correo)) valido=  false; 
+            const nombre = document.getElementById("nombre").value;
+            const correo = document.getElementById("correo").value;
+            const fecha = document.getElementById("fechaNacimiento").value;
+            const codigo = document.getElementById("codigoPostal").value;
+            const telefono = document.getElementById("telefono").value;
+            const password = inputPassword.value;
 
-                document.getElementById("errorCodigo").textContent = validarLongitud(codigo, 6) ? "" : "Maximo 6 digitos";
-                if(!validarLongitud(codigo, 6)) valido =false;
+            const nombreOk = soloLetras(nombre);
+            const correoOk = validarCorreo(correo);
+            const fechaOk = fecha !== "" && calcularEdad(fecha) >= 0;
+            const codigoOk = /^\d+$/.test(codigo) && validarLongitud(codigo, 5);
+            const passwordOk = validarPassword(password);
 
-                if(!valido) return ;
+            document.getElementById("errorNombre").textContent = nombreOk ? "" : "Solo letras permitidas";
+            document.getElementById("errorCorreo").textContent = correoOk ? "" : "Correo inválido";
+            document.getElementById("errorFecha").textContent = fechaOk ? "" : "Fecha inválida";
+            document.getElementById("errorCodigo").textContent = codigoOk ? "" : "Solo números, máximo 5 dígitos";
+            document.getElementById("errorPassword").textContent = passwordOk ? "" : "Mínimo 8 caracteres con mayúscula, minúscula, número y símbolo";
 
-                document.getElementById("edadResultado").textContent = calcularEdad(fecha);
-                document.getElementById("mayorEdadResultado").textContent = esMayorEdad(fecha) ? "Si" : "No";
-                document.getElementById("telefonoResultado").textContent = formatearTelefono(telefono);
+            if (!(nombreOk && correoOk && fechaOk && codigoOk && passwordOk)) return;
 
-                modal.showModal();
-            });
+            document.getElementById("nombreResultado").textContent = nombre;
+            document.getElementById("edadResultado").textContent = calcularEdad(fecha);
+            document.getElementById("mayorEdadResultado").textContent = esMayorDeEdad(fecha) ? "Sí" : "No";
+            document.getElementById("telefonoResultado").textContent = formatearTelefono(telefono);
 
-            document.getElementById("cerrarModal").addEventListener("click", function() {
-                modal.close() ;
+            modal.showModal();
+        });
 
-            });
-        </script>
-    </body>
+        document.getElementById("cerrarModal").addEventListener("click", function () {
+            modal.close();
+        });
+    </script>
+</body>
 </html>
