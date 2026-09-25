@@ -3,7 +3,7 @@
 Librería de validaciones y utilidades en JavaScript puro (sin frameworks) que resuelve un problema común: **validar y formatear datos de formularios sin reescribir las mismas expresiones regulares en cada proyecto**.
 
  **Demo en vivo:** <https://daniiela5.github.io/utileria-js/>
- **Video:** <link video >
+**Video:** [Ver demo en YouTube](https://youtu.be/czV_dfODwJQ)
 
 ## Instalación
 
@@ -82,9 +82,6 @@ medirFortalezaPassword("Hola123!");   // "fuerte"
 ### Login
 ![Login](img/login.png)
 
-## Video
-
-<video controls src="video.mp4"></video>
 
 ## Autor
 
